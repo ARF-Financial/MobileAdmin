@@ -1,0 +1,71 @@
+﻿   
+.MyTables
+{
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+border-collapse:collapse;
+}
+.MyTables td, .MyTables th 
+{
+font-size:0.8em;
+border:1px solid #98bf21;
+padding:1px 1px 2px 4px;
+}
+.MyTables th 
+{
+font-size:0.8em;
+text-align:left;
+padding-top:1px;
+padding-bottom:1px;
+background-color:#007E3A;
+color:#ffffff;
+}
+.MyTables tr.alt td 
+{
+color:#000000;
+background-color:#e5f8ed;
+}
+.tabs
+        {
+            position:relative;
+            top:1px;
+            left:10px;
+        }
+        .tab
+        {
+            border:solid 1px #fffafa;
+            background-color:white;
+            padding:2px 10px;
+        }
+        .selectedTab
+{
+	background-color: #ffe4b5;
+	border-bottom: solid 1px white;
+}
+        .tabContents
+        {
+            border:solid 1px #fffafa;
+            padding:10px;
+            background-color:white;
+        }
+.gridpager, .gridpager td{ 
+text-align: right;
+color: red; 
+font-weight:normal;
+text-decoration: none;
+height:12px;
+}
+
+.gridpager Table
+{
+float:right;
+} 
+.centered-cell {text-align: center;} 
+.left-cell {text-align: left;}
+.right-cell {text-align: right;}
+
+table.tbldetail {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}

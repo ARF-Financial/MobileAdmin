@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="Default.aspx" title="Home"  description="" >
+
+	<siteMapNode url="Login.aspx"                          title="Login"  description="" />
+
+    <siteMapNode url="Secure_LoanCalculator\LoanCalculator.aspx"       title="Loan Calculator "  description="" />
+    <siteMapNode url="Secure_LoanCalculator\UsersProfile.aspx"       title="Calculator Profile"  description="" />
+
+    <siteMapNode url="Secure_LoanDocs\SingleLoanDocs.aspx"       title="Single Docs "  description="" >
+    </siteMapNode>
+
+    <siteMapNode url="Secure_LoanDocsOthers\Default.aspx"          title="Loan Docs Others"  description="" >
+      <siteMapNode url="Secure_LoanDocsOthers\LoanDocs01.aspx"    title="Documents" description=""  />
+      <siteMapNode url="Secure_LoanDocsOthers\LOCReports.aspx"    title="LOC" description=""  />
+    </siteMapNode>
+
+    <siteMapNode url="Secure_SC\UMCAShort.aspx"         title="UMCA Short"  description="" />
+		<siteMapNode url="Secure_SC\SC_QueueHome.aspx"          title="Loan Management"  description="" >
+       <siteMapNode url="Secure_SC\SC_Queue.aspx"    title="Underwriting" description=""  />
+       <siteMapNode url="Secure_SC\SC_DashBoard.aspx"    title="Dashboard" description=""  />
+    </siteMapNode>
+
+    <siteMapNode url="Secure_Financial\Fin_QueueHome.aspx"      title="Finance"  description="" >
+      <siteMapNode url="Secure_Financial\Fin_QueueFunding.aspx"        title="Funding" description=""  />
+      <siteMapNode url="Secure_Financial\ACHQueue.aspx"        title="ACH Payments and Adjustments" description=""  />      
+      <siteMapNode url="Secure_Financial\Fin_Queue.aspx"        title="Collections" description=""  />
+      <siteMapNode url="Secure_Financial\Fin_SalesFinanceReports.aspx"    title="Sales Finance Reports" description=""  />
+      <siteMapNode url="Secure_Financial\Fin_SalesReports.aspx"    title="Sales Reports" description=""  />
+      <siteMapNode url="Secure_Financial\Fin_ACHReports.aspx"    title="ACH Reports" description=""  />
+      <siteMapNode url="Secure_Financial\Fin_FinancialTransactions.aspx"    title="Financial Transactions" description=""  />
+      <siteMapNode url="Secure_Financial\Fin_MerMastr.aspx"    title="MerMastr" description=""  />
+      <siteMapNode url="Secure_Financial\ACHFileManager.aspx"    title="File Manager" description=""  />
+      <siteMapNode url="Secure_Financial\Macola.aspx"    title="Macola" description=""  />
+    </siteMapNode>
+
+	<siteMapNode url="Secure_MobileAdmin\DPAppList.aspx"      title="Decline Partner Processing"  description="" >
+	</siteMapNode>
+
+  </siteMapNode>
+</siteMap>
