@@ -20,6 +20,7 @@ Public Class DPAppDetail
             FillPartnerList()
             FillStatusList()
             FillReasonList()
+            WhatCanIUpdate()
             GetRecord()
         End If
     End Sub
@@ -140,6 +141,14 @@ Public Class DPAppDetail
             sc_ReasonList.Enabled = False
         End If
 
+    End Sub
+
+    Protected Sub WhatCanIUpdate()
+        If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPFinance") Then
+            sc_PartnerNameList.Enabled = False
+            sc_FundAmt1.Enabled = False
+            sc_ReasonList.Enabled = False
+        End If
     End Sub
 
     Protected Sub CancelButton_Click(sender As Object, e As EventArgs) Handles CancelButton.Click
@@ -394,14 +403,27 @@ out:
     End Sub
 
     Protected Sub FillStatusList()
-        sc_StatusList.Items.Insert(0, "New")
-        sc_StatusList.Items.Insert(1, "Awaiting Rep Approval")
-        sc_StatusList.Items.Insert(2, "In Process")
-        sc_StatusList.Items.Insert(3, "Declined")
-        sc_StatusList.Items.Insert(4, "Funded - Awaiting Comm")
-        sc_StatusList.Items.Insert(5, "Funded - Received Comm")
-        sc_StatusList.Items.Insert(6, "Back to ARF")
-        sc_StatusList.Items.Insert(7, "Removed")
+        If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPFinance") Then
+            sc_StatusList.Items.Insert(0, "Funded - Awaiting Comm")
+            sc_StatusList.Items.Insert(1, "Funded - Received Comm")
+        ElseIf Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPSales") Then
+            sc_StatusList.Items.Insert(0, "New")
+            sc_StatusList.Items.Insert(1, "Awaiting Rep Approval")
+            sc_StatusList.Items.Insert(2, "In Process")
+            sc_StatusList.Items.Insert(3, "Declined")
+            sc_StatusList.Items.Insert(4, "Funded - Awaiting Comm")
+            sc_StatusList.Items.Insert(5, "Back to ARF")
+            sc_StatusList.Items.Insert(6, "Removed")
+        Else
+            sc_StatusList.Items.Insert(0, "New")
+            sc_StatusList.Items.Insert(1, "Awaiting Rep Approval")
+            sc_StatusList.Items.Insert(2, "In Process")
+            sc_StatusList.Items.Insert(3, "Declined")
+            sc_StatusList.Items.Insert(4, "Funded - Awaiting Comm")
+            sc_StatusList.Items.Insert(5, "Funded - Received Comm")
+            sc_StatusList.Items.Insert(6, "Back to ARF")
+            sc_StatusList.Items.Insert(7, "Removed")
+        End If
     End Sub
 
     Protected Sub FillReasonList()

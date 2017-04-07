@@ -13,8 +13,16 @@ Public Class UpdMerchMailAddr
     Dim Err As Boolean
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Session.Item("Username") = Membership.GetUser.UserName
+        If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_AddrUpdate") Or
+            Roles.IsUserInRole(Session.Item("Username"), "SystemControl") Then
+            Dim i As Integer = 1
+        Else
+            Response.Redirect("MobileAdminDefault.aspx?parm=noAuth")
+        End If
+
         If Not IsPostBack Then
-            FillStateList
+            FillStateList()
         End If
     End Sub
 

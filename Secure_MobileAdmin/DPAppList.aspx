@@ -35,17 +35,7 @@
                <tr>
                  <td class="centered-cell" >
                    Status:
-                   <asp:DropDownList ID="StatusList" runat="server" AutoPostBack="True" Width="80px">
-                   <asp:ListItem Selected="True" Value="ALL">ALL</asp:ListItem>
-                   <asp:ListItem>New</asp:ListItem>
-                   <asp:ListItem>Awaiting Rep Approval</asp:ListItem>
-                   <asp:ListItem>In Process</asp:ListItem>
-                   <asp:ListItem>Declined</asp:ListItem>
-                   <asp:ListItem>Funded - Awaiting Comm</asp:ListItem>
-                   <asp:ListItem>Funded - Received Comm</asp:ListItem>
-                   <asp:ListItem>Back to ARF</asp:ListItem>
-                   <asp:ListItem>Removed</asp:ListItem>
-                   </asp:DropDownList>
+                   <asp:DropDownList ID="StatusList" runat="server" AutoPostBack="True" Width="80px" />
                 </td>
                 <td>  
                    Start Date: <telerik:RadDatePicker ID="StartDate1" Runat="server" AutoPostBack="True" 

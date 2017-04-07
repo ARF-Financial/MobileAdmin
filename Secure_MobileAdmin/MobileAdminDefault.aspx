@@ -10,4 +10,8 @@
             Sales Functions
         </span>
     </div>
+    <p></p>
+    <div>
+        <asp:Label ID="msg" runat="server" Text="Label" ForeColor="Red"></asp:Label>
+    </div>
 </asp:Content>

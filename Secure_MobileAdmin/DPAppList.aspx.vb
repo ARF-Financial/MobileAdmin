@@ -10,17 +10,35 @@ Public Class DPAppList
     '
     ' DPAppList - ASR 07/21/2013
     ' List loan applications that were declined by ARF and are now in various stages of processing by Decline Partners.
-    '
+    ' 4/6/17 ASR - Finance cant Add or Delete
     '
     Dim GotRecs As Boolean
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Session.Item("Connect_String") = WebConfigurationManager.ConnectionStrings("ARF_Production").ConnectionString
-        Session.Item("Username") = "arobins" 'Membership.GetUser.UserName
+        Session.Item("Username") = Membership.GetUser.UserName
+        If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPSales") Or
+           Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPFinance") Or
+           Roles.IsUserInRole(Session.Item("Username"), "SystemControl") Then
+            Dim x As Integer = 1
+        Else
+            If Request.QueryString("from") = "Finance" Then
+                Response.Redirect("~/Secure_Financial/Fin_QueueHome.aspx")
+            Else
+                Response.Redirect("MobileAdminDefault.aspx?parm=noAuth")
+            End If
+        End If
+
+        'Dont show Add button to Finance
+        If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPFinance") Then
+            AddButton.Visible = False
+        End If
 
         If Not IsPostBack Then
 
             ' replace default filter values if returning from detail screen
+
+            StatusList_Load() ' load status list
             If Session.Item("DPStatusIndex") Is Nothing Then
                 StatusList.SelectedIndex = 0
             Else
@@ -77,7 +95,7 @@ Public Class DPAppList
         End If
 
         Dim Conn As New SqlConnection(Session.Item("Connect_String"))
-        Dim DT As New System.Data.DataTable
+        Dim DT As New DataTable
 
         Dim statusline As String = ""
         If StatusList.SelectedItem.Value = "ALL" Then
@@ -167,6 +185,20 @@ Public Class DPAppList
 
     End Sub
 
+    Protected Sub StatusList_Load()
+        'load status list
+        StatusList.Items.Add("ALL")
+        StatusList.Items.Add("New")
+        StatusList.Items.Add("Awaiting Rep Approval")
+        StatusList.Items.Add("In Process")
+        StatusList.Items.Add("Declined")
+        StatusList.Items.Add("Funded - Awaiting Comm")
+        StatusList.Items.Add("Funded - Received Comm")
+        StatusList.Items.Add("Back to ARF")
+        StatusList.Items.Add("Removed")
+        StatusList.Items.Item(0).Selected = True
+    End Sub
+
     Protected Sub PartnerList_Load()
         ' load Partner dropdown list
         Dim Conn As New SqlConnection(Session.Item("Connect_String"))
@@ -238,13 +270,27 @@ Public Class DPAppList
             If e.Item.ItemType = GridItemType.Item Or e.Item.ItemType = GridItemType.AlternatingItem Then
                 Dim item As GridDataItem = e.Item
                 If GotRecs Then
-                    ' If rep commission has been reported to the commissions app then record may not be updated
+                    ' If rep commission has been reported to the commissions app then record may not be updated 
                     If item("CommissionLock").Text = "True" Then
                         item("Del").Enabled = False
                         item("Del").Text = ""
+                        item("Mod").Enabled = False
+                        item("Mod").Text = ""
+                    End If
+                    ' If Finance user and status not funded then record may not be updated
+                    If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPFinance") And Not Left(item("CurrentStatus").Text, 6) = "Funded" Then
+                        item("Mod").Enabled = False
+                        item("Mod").Text = ""
+                    End If
+                    ' If sales user and commission received then record may not be updated
+                    If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPSales") And item("CurrentStatus").Text = "Funded - Received Comm" Then
+                        item("Mod").Enabled = False
+                        item("Mod").Text = ""
                     End If
                     ' Only enable the Delete button if the status is New or Awaiting Rep Approval.  Once status is changed, can no longer delete.
-                    If item("CurrentStatus").Text = "New" Or item("CurrentStatus").Text = "Awaiting Rep Approval" Then
+                    ' Finance cannot delete ASR 4/6/17
+                    If (item("CurrentStatus").Text = "New" Or item("CurrentStatus").Text = "Awaiting Rep Approval") And
+                        Not Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPFinance") Then
                         item("Del").Enabled = True
                     Else
                         item("Del").Enabled = False

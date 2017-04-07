@@ -5,11 +5,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <script runat="server">
-    
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs)
         If Not IsPostBack Then
             lblWelcomeISO.Text = Session("ISOName")
-            
+
             If IsNothing(Session("ISOName")) Then
                 lblWelcomeISO.Text = "Please Login"
             Else
@@ -23,7 +23,7 @@
         End If
 
         cmdGoToPreviousLoan.Visible = False
-        
+
         If IsNumeric(Session("SC_LoanNo")) Then
             If Session("SC_LoanNo") > 0 Then
                 cmdGoToPreviousLoan.Text = "Go To Loan " & Session("SC_LoanNo")
@@ -34,19 +34,19 @@
             cmdGoToPreviousLoan.Text = ""
             cmdGoToPreviousLoan.Visible = False
         End If
-        
+
     End Sub
-    
+
     Protected Sub LoginStatus1_LoggingOut(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.LoginCancelEventArgs)
         Session.Abandon()
         lblWelcomeISO.Text = ""
         UpdateLogout()
     End Sub
-    
+
     Sub UpdateLogout()
         Dim connSQL2 As SqlConnection = New SqlConnection()
         Dim SQL As String
-         
+
         connSQL2.ConnectionString = System.Web.Compilation.ConnectionStringsExpressionBuilder.GetConnectionString("ARF_UMCAConnectionString")
         SQL = "UPDATE tblUsersLog SET LogoutDate = '" & Now & "' " & _
                "WHERE SessionID = '" & Session.SessionID & "' " & _
@@ -57,7 +57,7 @@
         cmdSQL2.ExecuteNonQuery()
         cmdSQL2.Connection.Close()
     End Sub
-    
+
     Protected Sub Menu1_MenuItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.MenuEventArgs)
         Dim text As String = e.Item.Text
         If Session("ISO") > 30 Then
@@ -65,21 +65,20 @@
                 e.Item.Parent.ChildItems.Remove(e.Item)
             End If
         End If
-        
+
         If Session("RoleName") = "SalesCoordinator" Then
             If text = "Dashboard" Then
                 e.Item.Parent.ChildItems.Remove(e.Item)
             End If
         End If
 
-        
     End Sub
-    
+
     Protected Sub cmdGoToPreviousLoan_Click(sender As Object, e As System.EventArgs)
         Session("SC_LoanNo") = Session("SC_LoanNo_Saved")
         Response.Redirect("~/Secure_SC/SC_UMCA.aspx")
     End Sub
-    
+
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

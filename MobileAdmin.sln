@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MobileAdmin", "..\MobileAdmin", "{94C3FFC6-558E-47AB-91C7-59AF719EBCA5}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MobileAdmin", ".", "{94C3FFC6-558E-47AB-91C7-59AF719EBCA5}"
 	ProjectSection(WebsiteProperties) = preProject
 		SccProjectName = "SAK"
 		SccAuxPath = "SAK"
