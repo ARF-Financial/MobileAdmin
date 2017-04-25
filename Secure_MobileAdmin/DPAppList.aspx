@@ -99,7 +99,7 @@
                              <telerik:GridBoundColumn DataField="PartnerSubmitDate" HeaderText="Submit Date" DataFormatString="{0:MM/dd/yyyy}" itemstyle-horizontalalign="left" HeaderStyle-HorizontalAlign="Left" />
                              <telerik:GridBoundColumn DataField="PartnerActionDate" HeaderText="Action Date" DataFormatString="{0:MM/dd/yyyy}" itemstyle-horizontalalign="left" HeaderStyle-HorizontalAlign="Left" />
                              <telerik:GridBoundColumn DataField="PartnerFundAmt" HeaderText="Fund Amt" DataFormatString="{0:c2}" itemstyle-horizontalalign="right" HeaderStyle-HorizontalAlign="right" />
-                             <telerik:GridBoundColumn DataField="ARFCommissionDue" HeaderText="ARF Comm" DataFormatString="{0:c2}" itemstyle-horizontalalign="right" HeaderStyle-HorizontalAlign="right" />
+                             <telerik:GridBoundColumn UniqueName="ARFComm" DataField="ARFCommissionDue" HeaderText="ARF Comm" DataFormatString="{0:c2}" itemstyle-horizontalalign="right" HeaderStyle-HorizontalAlign="right" />
                              <telerik:GridBoundColumn DataField="CommissionReceivedDate" HeaderText="Comm Rcvd Date" DataFormatString="{0:MM/dd/yyyy}" itemstyle-horizontalalign="left" HeaderStyle-HorizontalAlign="Left" />
                         </Columns>
                      </MasterTableView>        

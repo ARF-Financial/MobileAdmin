@@ -10,7 +10,7 @@ Public Class DPAppList
     '
     ' DPAppList - ASR 07/21/2013
     ' List loan applications that were declined by ARF and are now in various stages of processing by Decline Partners.
-    ' 4/6/17 ASR - Finance cant Add or Delete
+    ' 4/6/17 ASR - Finance cant Add or Delete, Sales cant see commissions.
     '
     Dim GotRecs As Boolean
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -29,9 +29,11 @@ Public Class DPAppList
             End If
         End If
 
-        'Dont show Add button to Finance
+        'Dont show Add button to Finance or commissions to Sales
         If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPFinance") Then
             AddButton.Visible = False
+        ElseIf Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPSales") Then
+            RadGrid1.MasterTableView.GetColumn("ARFComm").Display = False
         End If
 
         If Not IsPostBack Then

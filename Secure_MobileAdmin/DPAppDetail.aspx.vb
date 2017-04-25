@@ -14,6 +14,12 @@ Public Class DPAppDetail
     Dim Err As Boolean
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPSales") Then
+            sc_ARFCommDue1.Visible = False
+            sc_RepCommDue1.Visible = False
+        End If
+
         If Not IsPostBack Then
             sc_LoanNum.Text = Session.Item("DPLoanID")
             BColor = sc_PartnerNameList.BorderColor
