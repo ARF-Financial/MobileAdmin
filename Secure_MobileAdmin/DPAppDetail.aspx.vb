@@ -57,7 +57,7 @@ Public Class DPAppDetail
                                "drPTR.ReasonDesc as PartnerDeclineReason, dpl.commissionlock from tblDeclinePartnerLoans dpl " &
                                "left join tblloans ln on ln.LoanNumber = dpl.LoanNumber " &
                                "left join DailyStatus ds on ds.AppNumber = dpl.LoanNumber " &
-                               "inner join tblDeclineReasons drARF on drARF.ReasonID = dpl.ARFDeclineReason " &
+                               "left join tblDeclineReasons drARF on drARF.ReasonID = dpl.ARFDeclineReason " &
                                "left join tblDeclineReasons drPTR on drPTR.ReasonID = dpl.PartnerDeclineReason " &
                                "left join tbl_Reps rp on rp.Rep_ID = dpl.RepID " &
                                "left join tblSource src on src.SourceText = dpl.leadsource " &

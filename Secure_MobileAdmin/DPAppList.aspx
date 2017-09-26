@@ -35,7 +35,7 @@
                <tr>
                  <td class="centered-cell" >
                    Status:
-                   <asp:DropDownList ID="StatusList" runat="server" AutoPostBack="True" Width="80px" />
+                   <asp:DropDownList ID="StatusList" runat="server" AutoPostBack="True" Width="180px" />
                 </td>
                 <td>  
                    Start Date: <telerik:RadDatePicker ID="StartDate1" Runat="server" AutoPostBack="True" 

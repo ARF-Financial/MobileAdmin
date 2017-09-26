@@ -13,17 +13,19 @@ Public Class DPAppList
     ' 4/6/17 ASR - Finance cant Add or Delete, Sales cant see commissions.
     '
     Dim GotRecs As Boolean
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Session.Item("Connect_String") = WebConfigurationManager.ConnectionStrings("ARF_Production").ConnectionString
         Session.Item("Username") = Membership.GetUser.UserName
+        Dim gotRole As Boolean = Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPFinance")
         If Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPSales") Or
            Roles.IsUserInRole(Session.Item("Username"), "MobileAdmin_DPFinance") Or
            Roles.IsUserInRole(Session.Item("Username"), "SystemControl") Then
             Dim x As Integer = 1
         Else
             If Request.QueryString("from") = "Finance" Then
-                Response.Redirect("~/Secure_Financial/Fin_QueueHome.aspx")
+                Response.Redirect("~/Secure_Financial/Fin_QueueHome.aspx?UserName=" & Session.Item("Username") & "&gotRole=" & gotRole.ToString)
             Else
                 Response.Redirect("MobileAdminDefault.aspx?parm=noAuth")
             End If
@@ -42,7 +44,11 @@ Public Class DPAppList
 
             StatusList_Load() ' load status list
             If Session.Item("DPStatusIndex") Is Nothing Then
-                StatusList.SelectedIndex = 0
+               If Request.QueryString("from") = "Finance" Then
+                  StatusList.SelectedIndex = 5
+               else
+                  StatusList.SelectedIndex = 0
+               end if
             Else
                 StatusList.SelectedIndex = Session.Item("DPStatusIndex")
             End If
@@ -132,7 +138,7 @@ Public Class DPAppList
                             "left join tbldeclinepartners dp on dp.partnerid = dpl.PartnerID " &
                             "left join tblLoans ln on ln.LoanNumber = dpl.LoanNumber " &
                             "left join dailystatus ds on ds.appnumber = dpl.loannumber " &
-                            "inner join tblDeclineReasons dr on dr.reasonid = dpl.ARFdeclinereason " &
+                            "left join tblDeclineReasons dr on dr.reasonid = dpl.ARFdeclinereason " &
                             "left join tbl_reps rep on rep.rep_id = dpl.repid " &
                             "where dpl.currentstatus <> 'System' and dpl.declineddate >= '" & StartDate1.SelectedDate & "' " & statusline & partnerline & repline & reasonline & merchline &
                             "order by dpl.declineddate"
@@ -198,7 +204,11 @@ Public Class DPAppList
         StatusList.Items.Add("Funded - Received Comm")
         StatusList.Items.Add("Back to ARF")
         StatusList.Items.Add("Removed")
-        StatusList.Items.Item(0).Selected = True
+        If Request.QueryString("from") = "Finance" Then
+           StatusList.Items.Item(5).Selected = True
+        else
+           StatusList.Items.Item(0).Selected = True
+        end if
     End Sub
 
     Protected Sub PartnerList_Load()
